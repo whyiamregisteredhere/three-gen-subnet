@@ -104,10 +104,10 @@ async def generate_video(
 
 def run_with_profiler():
     # Profile the execution
-    cProfile.run('uvicorn.run(app, host="0.0.0.0", port=args.port)', 'output.prof')
+    cProfile.run('uvicorn.run(app, host="0.0.0.0", port=args.port)', 'profiler_output.prof')
     
     # Optionally, analyze the profile datagit 
-    stats = pstats.Stats('output.prof')
+    stats = pstats.Stats('profiler_output.prof')
     stats.strip_dirs()
     stats.sort_stats('cumulative')
     stats.print_stats()

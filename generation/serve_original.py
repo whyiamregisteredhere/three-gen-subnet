@@ -1,15 +1,14 @@
 from io import BytesIO
+
 from fastapi import FastAPI, Depends, Form
 from fastapi.responses import Response, StreamingResponse
 import uvicorn
 import argparse
 import base64
 from time import time
-import cProfile
-import pstats
-import os
 
 from omegaconf import OmegaConf
+
 from DreamGaussianLib import GaussianProcessor, ModelsPreLoader, HDF5Loader
 from utils.video_utils import VideoUtils
 
@@ -18,7 +17,6 @@ def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--port", type=int, default=10006)
     parser.add_argument("--config", default="configs/text_mv.yaml")
-    parser.add_argument("--profile", action='store_true', help="Enable profiling")
     return parser.parse_args()
 
 
@@ -102,18 +100,5 @@ async def generate_video(
     return StreamingResponse(content=buffer, media_type="video/mp4")
 
 
-def run_with_profiler():
-    # Profile the execution
-    cProfile.run('uvicorn.run(app, host="0.0.0.0", port=args.port)', 'output.prof')
-    
-    # Optionally, analyze the profile data
-    stats = pstats.Stats('output.prof')
-    stats.strip_dirs()
-    stats.sort_stats('cumulative')
-    stats.print_stats()
-
 if __name__ == "__main__":
-    if args.profile:
-        run_with_profiler()
-    else:
-        uvicorn.run(app, host="0.0.0.0", port=args.port)
+    uvicorn.run(app, host="0.0.0.0", port=args.port)

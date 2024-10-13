@@ -14,18 +14,6 @@ fi
 PATH="${CONDA_BASE}/bin/":$PATH
 source "${CONDA_BASE}/etc/profile.d/conda.sh"
 
-ENV_NAME="three-gen-mining"
-# Check if the environment exists
-if conda env list | grep -q "^${ENV_NAME} "; then
-    echo "[INFO] Environment '${ENV_NAME}' already exists."
-    echo "[INFO] Running cleanup script to remove the environment."
-    
-    # Run cleanup_env.sh from the same directory as this script
-    ./cleanup_env.sh  
-else
-    echo "[INFO] Environment '${ENV_NAME}' does not exist. Proceeding to create it."
-fi
-
 # Create environment and activate it
 conda env create -f conda_env_mining.yml
 conda activate three-gen-mining

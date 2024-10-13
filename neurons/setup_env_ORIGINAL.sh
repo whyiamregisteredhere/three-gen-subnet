@@ -14,14 +14,8 @@ fi
 PATH="${CONDA_BASE}/bin/":$PATH
 source "${CONDA_BASE}/etc/profile.d/conda.sh"
 
-# Check if the environment already exists
-if conda env list | grep -q "three-gen-neurons"; then
-    echo "Conda environment 'three-gen-neurons' already exists. Skipping creation."
-else
-    # Create environment and activate it
-    conda env create -f conda_env_neurons.yml
-fi
-
+# Create environment and activate it
+conda env create -f conda_env_neurons.yml
 conda activate three-gen-neurons
 conda info --env
 

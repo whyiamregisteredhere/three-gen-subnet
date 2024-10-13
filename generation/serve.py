@@ -106,7 +106,7 @@ def run_with_profiler():
     # Profile the execution
     cProfile.run('uvicorn.run(app, host="0.0.0.0", port=args.port)', 'output.prof')
     
-    # Optionally, analyze the profile data
+    # Optionally, analyze the profile datagit 
     stats = pstats.Stats('output.prof')
     stats.strip_dirs()
     stats.sort_stats('cumulative')

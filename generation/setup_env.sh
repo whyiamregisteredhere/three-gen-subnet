@@ -49,6 +49,15 @@ pip install ./extras/ImageDream
 # Store the path of the Conda interpreter
 CONDA_INTERPRETER_PATH=$(which python)
 
+# Check if profiling is enabled
+PROFILE_FLAG=""
+if [[ "$1" == "--profile" ]]; then
+    PROFILE_FLAG="--profile"
+    echo "[INFO] Profiling is enabled."
+else
+    echo "[INFO] Profiling is disabled."
+fi
+
 # Generate the generation.config.js file for PM2 with specified configurations
 cat <<EOF > generation.config.js
 module.exports = {
@@ -56,7 +65,7 @@ module.exports = {
     name: 'generation',
     script: 'serve.py',
     interpreter: '${CONDA_INTERPRETER_PATH}',
-    args: '--port 8093'
+    args: '--port 8093 ${PROFILE_FLAG}'
   }]
 };
 EOF

@@ -1,4 +1,4 @@
-name: three-gen-validation
+name: validation
 channels:
   - defaults
   - conda-forge
